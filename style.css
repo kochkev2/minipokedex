@@ -1,0 +1,260 @@
+
+
+ /* AI assisted with responsive styling. */
+
+/* General page styling */
+:root {
+    --pokedex-red: #c93642;
+    --dark-red: #8f202c;
+    --screen-green: #c3ddc7;
+    --dark-green: #344d3c;
+    --cream: #f4f0e7;
+    --yellow: #f5cc61;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    padding: 30px 16px;
+    font-family: Arial, sans-serif;
+    background-color: #252b39;
+    color: #292929;
+    line-height: 1.5;
+}
+
+/* Main Pokédex container */
+header,
+main,
+footer {
+    max-width: 650px;
+    margin: 0 auto;
+}
+
+header {
+    background-color: var(--pokedex-red);
+    color: white;
+    padding: 35px 30px 25px;
+    border: 5px solid var(--dark-red);
+    border-bottom: none;
+    border-radius: 25px 25px 0 0;
+    text-align: center;
+}
+
+header::before {
+    content: "";
+    display: block;
+    width: 45px;
+    height: 45px;
+    margin: 0 auto 15px;
+    background-color: #64d7ed;
+    border: 7px solid white;
+    border-radius: 50%;
+    box-shadow: 0 0 0 4px var(--dark-red);
+}
+
+header h1 {
+    margin: 0;
+    font-size: 2rem;
+}
+
+header p {
+    margin-bottom: 0;
+}
+
+/* Main content */
+main {
+    background-color: var(--pokedex-red);
+    border-left: 5px solid var(--dark-red);
+    border-right: 5px solid var(--dark-red);
+    padding: 25px;
+}
+
+main section {
+    background-color: var(--cream);
+    padding: 20px;
+    margin-bottom: 20px;
+    border-radius: 12px;
+}
+
+h2 {
+    margin-top: 0;
+    font-size: 1.25rem;
+}
+
+/* Search form */
+#pokemon-form {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+#pokemon-form label {
+    width: 100%;
+    font-weight: bold;
+}
+
+#pokemon-input {
+    flex: 1;
+    min-width: 0;
+    padding: 12px;
+    border: 2px solid #999;
+    border-radius: 6px;
+    font-size: 1rem;
+}
+
+button {
+    padding: 12px 20px;
+    border: none;
+    border-radius: 6px;
+    background-color: var(--dark-red);
+    color: white;
+    font-size: 1rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+button:hover {
+    background-color: #64131d;
+}
+
+button:focus-visible,
+input:focus-visible {
+    outline: 3px solid #1775c1;
+    outline-offset: 3px;
+}
+
+/* Pokémon results screen */
+#pokemon-result {
+    background-color: var(--screen-green);
+    color: var(--dark-green);
+    border: 4px solid #647d69;
+    border-radius: 10px;
+    padding: 20px;
+    text-align: center;
+    min-height: 160px;
+}
+
+.pokemon-name {
+    margin: 0;
+    font-size: 1.5rem;
+    letter-spacing: 1px;
+}
+
+.pokemon-sprite {
+    display: block;
+    width: 160px;
+    height: 160px;
+    margin: 10px auto;
+    image-rendering: pixelated;
+}
+
+.pokemon-types {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin: 15px 0;
+}
+
+.type-badge {
+    background-color: var(--dark-green);
+    color: white;
+    padding: 5px 14px;
+    border-radius: 20px;
+    font-size: 0.9rem;
+    text-transform: capitalize;
+}
+
+.pokemon-abilities {
+    text-transform: capitalize;
+}
+
+#pokemon-result h4 {
+    margin-bottom: 10px;
+}
+
+.pokemon-stats {
+    padding: 0;
+    margin: 0;
+    list-style: none;
+    text-align: left;
+}
+
+.pokemon-stats li {
+    padding: 7px 10px;
+    border-bottom: 1px solid #8da992;
+    text-transform: capitalize;
+}
+
+.pokemon-stats li:last-child {
+    border-bottom: none;
+}
+
+/* Random Pokémon button */
+#random-button {
+    width: 100%;
+    background-color: var(--yellow);
+    color: #33270f;
+    border: 2px solid #c09a3c;
+    border-radius: 30px;
+}
+
+#random-button:hover {
+    background-color: #e8b83c;
+}
+
+/* Footer */
+footer {
+    background-color: var(--pokedex-red);
+    color: white;
+    padding: 15px 20px 25px;
+    border: 5px solid var(--dark-red);
+    border-top: none;
+    border-radius: 0 0 25px 25px;
+    text-align: center;
+}
+
+footer p {
+    margin: 0;
+}
+
+footer a {
+    color: white;
+    font-weight: bold;
+}
+
+/* Mobile layout */
+@media (max-width: 500px) {
+    body {
+        padding: 10px;
+    }
+
+    header,
+    main,
+    footer {
+        padding-left: 15px;
+        padding-right: 15px;
+    }
+
+    header h1 {
+        font-size: 1.6rem;
+    }
+
+    #pokemon-form {
+        flex-direction: column;
+    }
+
+    #pokemon-input,
+    #pokemon-form button {
+        width: 100%;
+    }
+
+    .pokemon-sprite {
+        width: 130px;
+        height: 130px;
+    }
+}

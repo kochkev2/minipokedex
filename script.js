@@ -31,27 +31,37 @@ async function fetchPokemon(pokemon) {
 }
 
 // Display Pokémon information on the page.
+
 function displayPokemon(data) {
-    // Clear the previous search result.
+    // Clear the previous result.
     pokemonResult.innerHTML = "";
 
-    // Pokémon name and Pokédex number.
+    // Name and Pokédex number.
     const name = document.createElement("h3");
+    name.className = "pokemon-name";
     name.textContent =
-        `${data.name.toUpperCase()} #${data.id}`;
+        `${data.name.toUpperCase()} #${String(data.id).padStart(3, "0")}`;
 
     // Pokémon sprite.
     const sprite = document.createElement("img");
+    sprite.className = "pokemon-sprite";
     sprite.src = data.sprites.front_default;
     sprite.alt = `Sprite of ${data.name}`;
 
     // Pokémon types.
-    const types = document.createElement("p");
-    types.textContent = "Type: " +
-        data.types.map(type => type.type.name).join(", ");
+    const types = document.createElement("div");
+    types.className = "pokemon-types";
+
+    data.types.forEach(type => {
+        const typeBadge = document.createElement("span");
+        typeBadge.className = "type-badge";
+        typeBadge.textContent = type.type.name;
+        types.appendChild(typeBadge);
+    });
 
     // Pokémon abilities.
     const abilities = document.createElement("p");
+    abilities.className = "pokemon-abilities";
     abilities.textContent = "Abilities: " +
         data.abilities.map(ability => ability.ability.name).join(", ");
 
@@ -60,17 +70,16 @@ function displayPokemon(data) {
     statsHeading.textContent = "Base Stats";
 
     const statsList = document.createElement("ul");
+    statsList.className = "pokemon-stats";
 
     data.stats.forEach(stat => {
         const listItem = document.createElement("li");
-
         listItem.textContent =
             `${stat.stat.name}: ${stat.base_stat}`;
-
         statsList.appendChild(listItem);
     });
 
-    // Add everything to the results section.
+    // Display the results.
     pokemonResult.appendChild(name);
     pokemonResult.appendChild(sprite);
     pokemonResult.appendChild(types);
