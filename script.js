@@ -7,6 +7,7 @@ const pokemonForm = document.getElementById("pokemon-form");
 const pokemonInput = document.getElementById("pokemon-input");
 const pokemonResult = document.getElementById("pokemon-result");
 const randomButton = document.getElementById("random-button");
+const pokemonCard = document.getElementById("pokemon-card");
 
 // Fetch Pokémon data from PokéAPI.
 async function fetchPokemon(pokemon) {
@@ -24,9 +25,11 @@ async function fetchPokemon(pokemon) {
         const data = await response.json();
 
         displayPokemon(data);
+        fetchPokemonCard(data.name);
 
     } catch (error) {
         pokemonResult.textContent = error.message;
+        pokemonCard.textContent = "Search for a valid Pokémon to see a card.";
     }
 }
 
@@ -86,6 +89,55 @@ function displayPokemon(data) {
     pokemonResult.appendChild(abilities);
     pokemonResult.appendChild(statsHeading);
     pokemonResult.appendChild(statsList);
+}
+
+
+// Fetch a matching Pokémon trading card from TCGdex.
+async function fetchPokemonCard(pokemonName) {
+    pokemonCard.textContent = "Loading trading card...";
+
+    try {
+        const response = await fetch(
+            `https://api.tcgdex.net/v2/en/cards?name=${encodeURIComponent(pokemonName)}`
+        );
+
+        if (!response.ok) {
+            throw new Error("Unable to load trading cards.");
+        }
+
+        const cards = await response.json();
+
+        // Find an exact Pokémon name match with an image.
+        const matchingCard = cards.find(card =>
+            card.name.toLowerCase() === pokemonName.toLowerCase()
+            && card.image
+        );
+
+        pokemonCard.innerHTML = "";
+
+        if (!matchingCard) {
+            pokemonCard.textContent =
+                "No matching trading card was found.";
+            return;
+        }
+
+        // Display the trading card image.
+        const cardImage = document.createElement("img");
+        cardImage.src = `${matchingCard.image}/high.webp`;
+        cardImage.alt = `${matchingCard.name} Pokémon trading card`;
+        cardImage.className = "trading-card-image";
+
+        const cardName = document.createElement("p");
+        cardName.textContent = matchingCard.name;
+
+        pokemonCard.appendChild(cardImage);
+        pokemonCard.appendChild(cardName);
+
+    } catch (error) {
+        pokemonCard.textContent =
+            "Trading card information is currently unavailable.";
+        console.error(error);
+    }
 }
 
 // Listen for the search form submission.
